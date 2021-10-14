@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html> <head> 
+	
+	<title>Stack as a repository</title>
+	<style>
+    .flex-container {
+      display: flex;  flex-direction:row;
+      background-color: rgba(68, 9, 9, 0.747);
+  }
+
+.flex-container > div {  /*div children of the flex container*/
+  background-color: #c5c5b8; 
+  margin: 10px;  padding: 20px;  font-size: 30px;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) { 
+	 .flex-container{
+		 flex-direction:column;
+		 background-color: rgb(14, 187, 129);
+	  }
+	}
+</style></head>
+
+
+
+<body>
+
+	<h2>Venkatesh Guttikonda builds a stack</h2>
+
+	<label for="name">Input Element: </label><input id="name" type="text"></input><br><br>
+
+	<div class="flex-container" id="target">
+		<div class="stack">stack1</div>   
+		<div class="stack">stack2</div>  
+		<div class="stack">stack3</div>  
+    </div>
+  
+  	<p> Press the button to create an new element of type div and then add it to the container.</p>
+	<button onclick="makeNewDiv()">Push value</button>
+	<button type="button" class="btn btn-primary" onclick="popItem()">Pop</button>
+	<button type="button" class="btn btn-primary" onclick="Zapvalues()">Zap</button>
+	<button type="button" class="btn btn-primary" onclick="uniqueValues()">Unique</button>
+</body>
+<script>
+	function makeNewDiv(){
+		/* make the div and its text */
+		let element = document.createElement("div");
+		element.innerHTML = document.getElementById("name").value;
+		element.className = "stack";
+
+		/* add it to the container */
+		document.getElementById('target').appendChild(element)
+		
+	}
+
+	function popItem() {
+		var stackItems = document.getElementsByClassName('stack');
+		if (stackItems.length > 0) {
+			stackItems[stackItems.length - 1].remove();
+		}
+
+	}
+
+
+	function Zapvalues() {
+		let stackItems = document.getElementsByClassName('stack');
+		let inputData = document.getElementById("name").value;
+		let stacksSize = stackItems.length;
+
+			if(stacksSize == 0){
+			 	alert("No Items in the stack to zap");
+				return;
+			} 
+		
+			for (let index = 0; index < stacksSize; index++) {
+				let element = stackItems[index].innerHTML;
+				if (element == inputData) {
+					console.log(stackItems[index])
+					stackItems[index].remove();
+					index--;
+				}
+
+			}
+	}
+
+	//for bonus
+	function uniqueValues(){
+
+		let stackItems = document.getElementsByClassName('stack');
+			for (let i = stackItems.length-1; i >=0; i--) {
+				let stackItem = stackItems[i].innerHTML;
+				for (let j = i-1; j >= 0; j--) {
+					if (stackItem == stackItems[j].innerHTML) {
+						stackItems[j].remove();								
+				    }
+
+			   }
+				
+			}
+
+}
+</script>
+</html>	
